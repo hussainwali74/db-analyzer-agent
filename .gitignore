@@ -5,7 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+config.json
 # Distribution / packaging
 .Python
 build/
@@ -106,3 +106,4 @@ venv.bak/
 # FastAPI specific
 test.db
 log.txt
+config.json

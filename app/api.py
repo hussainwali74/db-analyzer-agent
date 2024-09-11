@@ -2,7 +2,8 @@ from fastapi import APIRouter, HTTPException
 from app.database import DBCredentials
 from app.models import Question
 from app.config import load_config, save_config
-from app.vanna_utils import get_vanna_instance, suggest_questions, ask_question, train_vanna
+from app.vanna_utils import get_vanna_instance, ask_question, train_vanna
+from app.custom_agent import suggest_questions
 import logging
 
 router = APIRouter()
@@ -38,10 +39,12 @@ async def train_model():
 
 
 @router.get("/suggest_questions")
-async def get_suggested_questions():
+async def get_suggested_questions(n_questions: int = 3):
     try:
-        vn = get_vanna_instance()
-        questions = suggest_questions(vn)
+
+        questions = suggest_questions(num_questions=n_questions)
+        print('questions',questions);
+        print('============');
         logger.info("Questions suggested successfully")
         return {"suggested_questions": questions}
     except Exception as e:
